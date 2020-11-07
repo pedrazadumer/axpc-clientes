@@ -62,7 +62,7 @@ A continuación se presenta la especificación de la API
 |Método HTTP|PUT|
 |URI|/api/v1/productores/{usuario}|
 |Encabezados de Petición|Content-Type=application/json|
-|Cuerpo de Petición|```{"identificacion":"111111111","tipoIdentificacion":"C","primerNombre":"Fabiola","segundoNombre":"","primerApellido":"Posada","segundoApellido":"Pinedo","correo":"fabiola.posada@tucorreo.com"}```|
+|Cuerpo de Petición|```{"identificacion":"111111111","tipoIdentificacion":"C","primerNombre":"Fabiola","segundoNombre":"","primerApellido":"Posada","segundoApellido":"Pinedo","correo":"fabiola.posada@tucorreo.com", "clave":"L4sUp3rCl4v3"}```|
 
 ##### 3.3.2 Respuesta
 |Parámetro|Valor|
