@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
-public class ServicioClientesTest {
+public class MicroservicioClientesTest {
 
     @LocalServerPort
     private int port;
