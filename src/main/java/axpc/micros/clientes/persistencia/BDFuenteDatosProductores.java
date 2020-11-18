@@ -18,7 +18,7 @@ public class BDFuenteDatosProductores implements FuenteDatosProductores {
     public static final String QUERY_OBTENER_PRODUCTOR_POR_USUARIO = "SELECT * FROM USUARIO WHERE usrLogin = ?";
     public static final String QUERY_INSERTAR_PRODUCTOR = "INSERT INTO USUARIO (usrLogin, usrCorreo, usrUsTiId, usrPassHash, " +
             "usrUsTiIdAbrev, usrIdentificacion, usrMonid, usrPrimerNombre, usrSegundoNombre, usrPrimerApellido, " +
-            "usrSegundoApellido) VALUES (?, ?, ?, MD5(?), ?, ?, ?, ?, ?)";
+            "usrSegundoApellido) VALUES (?, ?, ?, SHA2(?, 256), ?, ?, ?, ?, ?)";
     public static final int TIPO_USUARIO_PRODUCTOR = 1;
     public static final int MONEDA_PESOS_COLOMBIANOS = 1;
     private JdbcTemplate jdbcTemplate;
