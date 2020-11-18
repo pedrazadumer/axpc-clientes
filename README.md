@@ -30,7 +30,7 @@ A continuación se presenta la especificación de la API
 
 |Código HTTP|Cuerpo de Respuesta|
 |---|---|
-|200|```{"productores":[{"usuario":"julian_arango","identificacion":"123456789","tipoIdentificacion":"C","nombre":"Julián Arango","correo":"julian_arango@tucorreo.com"},{"usuario":"robinson.diaz","identificacion":"987654321","tipoIdentificacion":"C","nombre":"Robinson Díaz Uribe","correo":"robinson.diaz@tucorreo.com"}]}```|
+|200|```{"productores":[{"usuario":"julian_arango","identificacion":"123456789","tipoIdentificacion":"C","nombre":"Julián Arango","correo":"julian_arango@tucorreo.com"},{"usuario":"robinson_diaz","identificacion":"987654321","tipoIdentificacion":"C","nombre":"Robinson Díaz Uribe","correo":"robinson_diaz@tucorreo.com"}]}```|
 |200|```{"productores":[]}```|
 |500|```{"error":"Ocurrio un error","descripcionError":"Ocurrio un error de tipo ABC por la razon D"}```|
 
