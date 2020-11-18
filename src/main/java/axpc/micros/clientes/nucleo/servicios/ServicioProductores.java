@@ -9,4 +9,6 @@ public interface ServicioProductores {
     List<Productor> obtenerProductores();
 
     Productor obtenerProductor(String usuario);
+
+    Productor registrarProductor(Productor productor);
 }

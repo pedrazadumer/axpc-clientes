@@ -9,7 +9,7 @@ import org.junit.rules.ExpectedException;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
 
-public class MapeadorProductorAProductorDtoTest {
+public class MapeadorProductorTest {
 
     private static final String NOMBRE_COMPLETO_DE_PRUEBA = "Fabiola Emilia Posada Pineda";
     private static final String NOMBRE_PRUEBA_SIN_SEGUNDOS = "Jaime Bayly";
@@ -18,17 +18,17 @@ public class MapeadorProductorAProductorDtoTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void debeRechazarProductorNulo() {
+    public void mapearADtoDebeRechazarProductorNulo() {
         this.expectedException.expect(IllegalArgumentException.class);
 
-        MapeadorProductorAProductorDto.mapear(null);
+        MapeadorProductor.mapearADto(null);
     }
 
     @Test
-    public void noDebeFallarSiElProductorTieneAtributosNulos() {
+    public void mapearADtoNoDebeFallarSiElProductorTieneAtributosNulos() {
         Productor productor = new Productor();
 
-        ProductorDto productorDto = MapeadorProductorAProductorDto.mapear(productor);
+        ProductorDto productorDto = MapeadorProductor.mapearADto(productor);
 
         assertNull(productorDto.getCorreo());
         assertNull(productorDto.getTipoIdentificacion());
@@ -38,31 +38,31 @@ public class MapeadorProductorAProductorDtoTest {
     }
 
     @Test
-    public void debeConcatenarPrimerNombreYApellidoSiNoHaySegundos() {
+    public void mapearADtoDebeConcatenarPrimerNombreYApellidoSiNoHaySegundos() {
         Productor productor = new Productor();
         productor.setPrimerNombre("Jaime");
         productor.setPrimerApellido("Bayly");
 
-        ProductorDto productorDto = MapeadorProductorAProductorDto.mapear(productor);
+        ProductorDto productorDto = MapeadorProductor.mapearADto(productor);
 
         assertEquals(NOMBRE_PRUEBA_SIN_SEGUNDOS, productorDto.getNombre());
     }
 
     @Test
-    public void debeConcatenarPrimerNombreYApellidoSiLosSegundosEstanEnBlanco() {
+    public void mapearADtoDebeConcatenarPrimerNombreYApellidoSiLosSegundosEstanEnBlanco() {
         Productor productor = new Productor();
         productor.setPrimerNombre("Jaime");
         productor.setSegundoNombre(" ");
         productor.setPrimerApellido("Bayly");
         productor.setSegundoApellido(" ");
 
-        ProductorDto productorDto = MapeadorProductorAProductorDto.mapear(productor);
+        ProductorDto productorDto = MapeadorProductor.mapearADto(productor);
 
         assertEquals(NOMBRE_PRUEBA_SIN_SEGUNDOS, productorDto.getNombre());
     }
 
     @Test
-    public void debeMapearTodosLosAtributosDelProductorDisponibles() {
+    public void mapearADtoDebeMapearTodosLosAtributosDelProductorDisponibles() {
         Productor productor = new Productor();
         productor.setPrimerNombre("Fabiola");
         productor.setSegundoNombre("Emilia");
@@ -74,7 +74,7 @@ public class MapeadorProductorAProductorDtoTest {
         productor.setTipoIdentificacion("C");
         productor.setIdentificacion("111111111");
 
-        ProductorDto productorDto = MapeadorProductorAProductorDto.mapear(productor);
+        ProductorDto productorDto = MapeadorProductor.mapearADto(productor);
         assertEquals(NOMBRE_COMPLETO_DE_PRUEBA, productorDto.getNombre());
         assertEquals(productor.getUsuario(), productorDto.getUsuario());
         assertEquals(productor.getCorreo(), productorDto.getCorreo());

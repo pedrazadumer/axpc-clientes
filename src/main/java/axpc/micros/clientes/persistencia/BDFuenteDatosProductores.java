@@ -16,4 +16,10 @@ public class BDFuenteDatosProductores implements FuenteDatosProductores {
     public Optional<Productor> obtenerProductor(String usuario) {
         return Optional.empty();
     }
+
+    @Override
+    public Productor registrarProductor(Productor productor) {
+        // TODO implement DB persistence
+        return productor;
+    }
 }

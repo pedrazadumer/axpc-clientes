@@ -11,4 +11,5 @@ public interface FuenteDatosProductores {
 
     Optional<Productor> obtenerProductor(String usuario);
 
+    Productor registrarProductor(Productor productor);
 }

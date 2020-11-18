@@ -2,16 +2,17 @@ package axpc.micros.clientes.rest.dto.mapeadores;
 
 import axpc.micros.clientes.nucleo.modelo.Productor;
 import axpc.micros.clientes.rest.dto.ProductorDto;
+import axpc.micros.clientes.rest.dto.RegistrarProductorDto;
 import org.apache.commons.lang3.StringUtils;
 
-public class MapeadorProductorAProductorDto {
+public class MapeadorProductor {
 
     private static final String ESPACIO = " ";
 
-    private MapeadorProductorAProductorDto() {
+    private MapeadorProductor() {
     }
 
-    public static ProductorDto mapear(Productor productor) {
+    public static ProductorDto mapearADto(Productor productor) {
         if (productor == null) throw new IllegalArgumentException("No se puede mapear un Productor nulo.");
 
         ProductorDto productorDto = new ProductorDto();
@@ -30,5 +31,9 @@ public class MapeadorProductorAProductorDto {
         if (concatenadorNombre.length() != 0) productorDto.setNombre(concatenadorNombre.toString());
 
         return productorDto;
+    }
+
+    public static Productor mapearAModelo(RegistrarProductorDto registrarProductorDto) {
+        return new Productor();
     }
 }

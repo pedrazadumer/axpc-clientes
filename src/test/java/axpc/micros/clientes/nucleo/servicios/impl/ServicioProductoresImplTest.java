@@ -2,12 +2,14 @@ package axpc.micros.clientes.nucleo.servicios.impl;
 
 import axpc.micros.clientes.nucleo.datos.FuenteDatosProductores;
 import axpc.micros.clientes.nucleo.excepciones.EntidadNoExiste;
+import axpc.micros.clientes.nucleo.excepciones.EntidadYaExiste;
 import axpc.micros.clientes.nucleo.modelo.Productor;
 import axpc.micros.clientes.nucleo.servicios.ServicioProductores;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +89,29 @@ public class ServicioProductoresImplTest {
         Productor productor = servicioProductores.obtenerProductor(USUARIO_EXISTENTE);
 
         assertEquals(usuario_existente.get(), productor);
+    }
+
+    @Test
+    public void registrarProductorDebeReLanzarLaExcepcionEntidadYaExiste(){
+        expectedException.expect(EntidadYaExiste.class);
+        expectedException.expectMessage(Productor.class.getName());
+        expectedException.expectMessage(USUARIO_EXISTENTE);
+
+        when(fuenteDatosProductores.registrarProductor(Mockito.any(Productor.class)))
+                .thenThrow(new EntidadYaExiste(Productor.class, USUARIO_EXISTENTE));
+
+        servicioProductores.registrarProductor(mock(Productor.class));
+    }
+
+    @Test
+    public void registrarProductorDebeRetornarLaInstanciaDelProductorRegistrado(){
+        Productor productorACrear = crearProductorConUsuario(USUARIO_INEXISTENTE);
+
+        when(fuenteDatosProductores.registrarProductor(Mockito.any(Productor.class)))
+                .thenReturn(productorACrear);
+
+        Productor productorRegistrado = servicioProductores.registrarProductor(mock(Productor.class));
+        assertEquals(productorACrear, productorRegistrado);
     }
 
     private static Productor crearProductorConUsuario(String usuario) {

@@ -30,4 +30,9 @@ public class ServicioProductoresImpl implements ServicioProductores {
         if (!productor.isPresent()) throw new EntidadNoExiste(Productor.class, usuario);
         return productor.get();
     }
+
+    @Override
+    public Productor registrarProductor(Productor productor) {
+        return this.fuenteDatosProductores.registrarProductor(productor);
+    }
 }

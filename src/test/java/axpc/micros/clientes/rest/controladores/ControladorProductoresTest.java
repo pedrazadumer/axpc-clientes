@@ -1,8 +1,10 @@
 package axpc.micros.clientes.rest.controladores;
 
 import axpc.micros.clientes.nucleo.excepciones.EntidadNoExiste;
+import axpc.micros.clientes.nucleo.excepciones.EntidadYaExiste;
 import axpc.micros.clientes.nucleo.modelo.Productor;
 import axpc.micros.clientes.nucleo.servicios.ServicioProductores;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,12 @@ import org.springframework.util.MimeTypeUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -32,6 +37,8 @@ public class ControladorProductoresTest {
     private static final String URI_API_PRODUCTORES = "/api/v1/productores";
     private static final String USUARIO_INEXISTENTE = "usuario_inexistente";
     private static final String USUARIO_FABIOLA_POSADA = "fabiola_posada";
+    private static final String CREAR_USUARIO_FABIOLA_EN_JSON = "{\"identificacion\":\"111111111\",\"tipoIdentificacion\":\"C\",\"primerNombre\":\"Fabiola\",\"segundoNombre\":\"Emilia\",\"primerApellido\":\"Posada\",\"segundoApellido\":\"Pinedo\",\"correo\":\"fabiola_posada@tucorreo.com\",\"clave\":\"L4sUp3rCl4v3\"}";
+    private static final String RESPUESTA_USUARIO_FABIOLA_EN_JSON = "{\"usuario\":\"fabiola_posada\",\"identificacion\":\"111111111\",\"tipoIdentificacion\":\"C\",\"nombre\":\"Fabiola Emilia Posada Pineda\",\"correo\":\"fabiola_posada@tucorreo.com\"}";
 
     @Autowired
     private MockMvc mockMvc;
@@ -102,6 +109,54 @@ public class ControladorProductoresTest {
         resultadoEsperado.andExpect(content().json("{\"usuario\":\"fabiola_posada\"," +
                 "\"identificacion\":\"111111111\",\"tipoIdentificacion\":\"C\",\"nombre\":\"Fabiola Emilia Posada Pineda\",\"correo\":" +
                 "\"fabiola_posada@tucorreo.com\"}"));
+    }
+
+    @Test
+    public void registrarProductorDebeRetornarHTTP400SinRequestBody() throws Exception {
+        ResultActions resultadoEsperado = mockMvc.perform(
+                put(URI_API_PRODUCTORES + "/" + USUARIO_FABIOLA_POSADA).contentType(MimeTypeUtils.APPLICATION_JSON_VALUE));
+
+        resultadoEsperado.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void registrarProductorDebeRetornarHTTP400ConRequestBodyIncorrecto() throws Exception {
+        ResultActions resultadoEsperado = mockMvc.perform(
+                put(URI_API_PRODUCTORES + "/" + USUARIO_FABIOLA_POSADA)
+                        .content("{}")
+                        .contentType(MimeTypeUtils.APPLICATION_JSON_VALUE));
+
+        resultadoEsperado.andExpect(status().isBadRequest());
+        resultadoEsperado.andExpect(jsonPath("$.descripcionError", CoreMatchers.containsString("with 6 error(s)")));
+    }
+
+    @Test
+    public void registrarProductorDebeRetornarHTTP201ConRequestBodyCorrecto() throws Exception {
+        Productor productorFabiola = crearProductorPrueba("Fabiola", "Emilia",
+                "Posada", "Pineda", "111111111");
+        when(servicioProductores.registrarProductor(any(Productor.class))).thenReturn(productorFabiola);
+
+        ResultActions resultadoEsperado = mockMvc.perform(
+                put(URI_API_PRODUCTORES + "/" + USUARIO_FABIOLA_POSADA)
+                        .content(CREAR_USUARIO_FABIOLA_EN_JSON)
+                        .contentType(MimeTypeUtils.APPLICATION_JSON_VALUE));
+
+        resultadoEsperado.andExpect(status().isCreated());
+        resultadoEsperado.andExpect(content().json(RESPUESTA_USUARIO_FABIOLA_EN_JSON));
+    }
+
+    @Test
+    public void registrarProductorDebeRetornarHTTP406SiElProductorACrearYaExiste() throws Exception {
+        when(servicioProductores.registrarProductor(any(Productor.class)))
+                .thenThrow(new EntidadYaExiste(Productor.class, USUARIO_FABIOLA_POSADA));
+
+        ResultActions resultadoEsperado = mockMvc.perform(
+                put(URI_API_PRODUCTORES + "/" + USUARIO_FABIOLA_POSADA)
+                        .content(CREAR_USUARIO_FABIOLA_EN_JSON)
+                        .contentType(MimeTypeUtils.APPLICATION_JSON_VALUE));
+
+        resultadoEsperado.andExpect(status().isConflict());
+        resultadoEsperado.andExpect(content().json("{\"error\":\"Recurso a crear ya existe.\",\"descripcionError\":\"El recurso de tipo [Productor] con identificador [" + USUARIO_FABIOLA_POSADA + "] ya existe.\"}"));
     }
 
     private Productor crearProductorPrueba(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String identificacion) {
