@@ -7,6 +7,7 @@
     <groupId>axpc.micros</groupId>
     <artifactId>axpc-clientes</artifactId>
     <version>0.1.0</version>
+    <packaging>war</packaging>
 
     <properties>
         <java-version>1.8</java-version>
@@ -61,6 +62,12 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>${mariadb-java-client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Dependencias para las pruebas unitarias -->

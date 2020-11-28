@@ -1,3 +1,8 @@
+truncate table usuarioTipo;
+truncate table usuarioTipoIdentificacion;
+truncate table moneda;
+truncate table usuario;
+
 -- Parece ser para los tipos de usuario (entre Productor y Comprador) (?)
 insert into usuarioTipo (usTiId, usTiNombre) values (1, 'PRODUCTOR');
 

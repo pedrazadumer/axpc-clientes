@@ -10,6 +10,7 @@ public class MapeadorFilaProductor implements RowMapper<Productor> {
 
     private static final String COLUMNA_USUARIO = "usrLogin";
     private static final String COLUMNA_CORREO = "usrCorreo";
+    private static final String COLUMNA_HASH_CLAVE = "usrPassHash";
     private static final String COLUMNA_TIPO_IDENTIFICACION = "usrUsTiIdAbrev";
     private static final String COLUMNA_IDENTIFICACION = "usrIdentificacion";
     private static final String COLUMNA_PRIMER_NOMBRE = "usrPrimerNombre";
@@ -22,6 +23,7 @@ public class MapeadorFilaProductor implements RowMapper<Productor> {
         Productor productor = new Productor();
         productor.setUsuario(resultSet.getString(COLUMNA_USUARIO));
         productor.setCorreo(resultSet.getString(COLUMNA_CORREO));
+        productor.setClave(resultSet.getString(COLUMNA_HASH_CLAVE));
         productor.setTipoIdentificacion(resultSet.getString(COLUMNA_TIPO_IDENTIFICACION));
         productor.setIdentificacion(resultSet.getString(COLUMNA_IDENTIFICACION));
         productor.setPrimerNombre(resultSet.getString(COLUMNA_PRIMER_NOMBRE));
