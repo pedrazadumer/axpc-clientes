@@ -9,20 +9,46 @@ El siguiente diagrama ilustra los componentes a alto nivel.
 
 ![MICRO_CLIENTES_COMPONENTES](./docs/MICRO_CLIENTES_COMPONENTES.png)
 
-### 3. Especificación de la API
+### 3. Ejecutar el Microservicio de Clientes Localmente
+
+#### 3.1 Descargar y construir la imagen base: axpc-tomcat-base
+
+```
+$ git clone https://github.com/pedrazadumer/axpc-tomcat-base.git
+$ cd axpc-tomcat-base
+$ docker build -t axpc-tomcat-base .
+$ cd ..
+```
+
+#### 3.2 Descargar y construir la imagen del microservicio: axpc-clientes
+
+```
+$ git clone https://github.com/pedrazadumer/axpc-clientes.git
+$ cd axpc-clientes
+$ mvn clean package
+$ docker build -t axpc-client .
+```
+
+#### 3.2 Crear e iniciar un contenedor con el microservicio: axpc-clientes
+
+```
+$ docker run -p 8080:8080 axpc-clientes:latest
+```
+
+### 4. Especificación de la API
 
 A continuación se presenta la especificación de la API
 
-#### 3.1 Obtener Productores
+#### 4.1 Obtener Productores
 
-##### 3.1.1 Petición
+##### 4.1.1 Petición
 |Parámetro|Valor|
 |---|---|
 |Método HTTP|GET|
 |URI|/api/v1/productores|
 |Encabezados de Petición|Content-Type=application/json|
 
-##### 3.1.2  Respuesta
+##### 4.1.2  Respuesta
 
 |Parámetro|Valor|
 |---|---|
@@ -34,16 +60,16 @@ A continuación se presenta la especificación de la API
 |200|```{"productores":[]}```|
 |500|```{"error":"Ocurrio un error","descripcionError":"Ocurrio un error de tipo ABC por la razon D"}```|
 
-#### 3.2 Obtener Productor
+#### 4.2 Obtener Productor
 
-##### 3.2.1 Petición
+##### 4.2.1 Petición
 |Parámetro|Valor|
 |---|---|
 |Método HTTP|GET|
 |URI|/api/v1/productores/{usuario}|
 |Encabezados de Petición|Content-Type=application/json|
 
-##### 3.2.2 Respuesta
+##### 4.2.2 Respuesta
 |Parámetro|Valor|
 |---|---|
 |Encabezados de Respuesta|Content-Type=application/json|
@@ -54,9 +80,9 @@ A continuación se presenta la especificación de la API
 |404|```{"error":"El productor no existe","descripcionError":"El Productor con usuario [julian] no existe."}```|
 |500|```{"error":"Ocurrio un error","descripcionError":"Ocurrio un error de tipo ABC por la razon D"}```|
 
-#### 3.3 Registrar Productor
+#### 4.3 Registrar Productor
 
-##### 3.3.1 Petición
+##### 4.3.1 Petición
 |Parámetro|Valor|
 |---|---|
 |Método HTTP|PUT|
@@ -64,7 +90,7 @@ A continuación se presenta la especificación de la API
 |Encabezados de Petición|Content-Type=application/json|
 |Cuerpo de Petición|```{"identificacion":"111111111","tipoIdentificacion":"C","primerNombre":"Fabiola","segundoNombre":"","primerApellido":"Posada","segundoApellido":"Pinedo","correo":"fabiola_posada@tucorreo.com", "clave":"L4sUp3rCl4v3"}```|
 
-##### 3.3.2 Respuesta
+##### 4.3.2 Respuesta
 |Parámetro|Valor|
 |---|---|
 |Encabezados de Respuesta|Content-Type=application/json </br> Location=/api/v1/productores/fabiola_posada|
