@@ -3,6 +3,10 @@ package axpc.micros.clientes.rest.dto;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+
 @Data
 public class RegistrarProductorDto {
 
@@ -22,4 +26,10 @@ public class RegistrarProductorDto {
     @NotBlank
     private String clave;
 
+    private String telefono;
+    private String departamento;
+    private String ciudad;
+    private String direccion;
+    @Valid
+    private List<ProductoDto> productos = Collections.emptyList();
 }

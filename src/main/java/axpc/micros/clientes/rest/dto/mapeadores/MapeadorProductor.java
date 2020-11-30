@@ -1,9 +1,13 @@
 package axpc.micros.clientes.rest.dto.mapeadores;
 
+import axpc.micros.clientes.nucleo.modelo.Producto;
 import axpc.micros.clientes.nucleo.modelo.Productor;
 import axpc.micros.clientes.rest.dto.ProductorDto;
 import axpc.micros.clientes.rest.dto.RegistrarProductorDto;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapeadorProductor {
 
@@ -34,6 +38,27 @@ public class MapeadorProductor {
     }
 
     public static Productor mapearAModelo(RegistrarProductorDto registrarProductorDto) {
-        return new Productor();
+        if (registrarProductorDto == null) throw new IllegalArgumentException("No se puede mapear un Productor nulo.");
+
+        Productor productor = new Productor();
+
+        productor.setCorreo(registrarProductorDto.getCorreo());
+        productor.setIdentificacion(registrarProductorDto.getIdentificacion());
+        productor.setTipoIdentificacion(registrarProductorDto.getTipoIdentificacion());
+        productor.setUsuario(registrarProductorDto.getUsuario());
+        productor.setPrimerNombre(registrarProductorDto.getPrimerNombre());
+        productor.setSegundoNombre(registrarProductorDto.getSegundoNombre());
+        productor.setPrimerApellido(registrarProductorDto.getPrimerApellido());
+        productor.setSegundoApellido(registrarProductorDto.getSegundoApellido());
+        productor.setTelefono(registrarProductorDto.getTelefono());
+        productor.setDireccion(registrarProductorDto.getDireccion());
+        productor.setDepartamento(registrarProductorDto.getDepartamento());
+        productor.setCiudad(registrarProductorDto.getCiudad());
+
+        productor.setProductos(registrarProductorDto.getProductos().stream()
+                .map(MapeadorProducto::mapearAModelo)
+                .collect(Collectors.toList()));
+
+        return productor;
     }
 }

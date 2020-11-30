@@ -54,6 +54,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `usrPaiId` INT NULL,
   `usrEstId` INT NULL,
   `usrCiuId` INT NULL,
+  `usrDepartamento1` VARCHAR(256) NULL,
+  `usrCiudad1` VARCHAR(256) NULL,
   `usrDireccion1` VARCHAR(45) NULL,
   `usrDireccion2` VARCHAR(45) NULL,
   `usrTelefono1` VARCHAR(45) NULL,

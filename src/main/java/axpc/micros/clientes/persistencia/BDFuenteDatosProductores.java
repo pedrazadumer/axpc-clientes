@@ -18,7 +18,8 @@ public class BDFuenteDatosProductores implements FuenteDatosProductores {
     public static final String QUERY_OBTENER_PRODUCTOR_POR_USUARIO = "SELECT * FROM USUARIO WHERE usrLogin = ?";
     public static final String QUERY_INSERTAR_PRODUCTOR = "INSERT INTO USUARIO (usrLogin, usrCorreo, usrUsTiId, usrPassHash, " +
             "usrUsTiIdAbrev, usrIdentificacion, usrMonid, usrPrimerNombre, usrSegundoNombre, usrPrimerApellido, " +
-            "usrSegundoApellido) VALUES (?, ?, ?, SHA2(?, 256), ?, ?, ?, ?, ?)";
+            "usrSegundoApellido, usrTelefono1, usrDireccion1, usrDepartamento1, usrCiudad1) " +
+            "VALUES (?, ?, ?, SHA2(?, 256), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     public static final int TIPO_USUARIO_PRODUCTOR = 1;
     public static final int MONEDA_PESOS_COLOMBIANOS = 1;
     private JdbcTemplate jdbcTemplate;
@@ -49,7 +50,9 @@ public class BDFuenteDatosProductores implements FuenteDatosProductores {
             this.jdbcTemplate.update(QUERY_INSERTAR_PRODUCTOR, productor.getUsuario(), productor.getCorreo(),
                     TIPO_USUARIO_PRODUCTOR, productor.getClave(), productor.getTipoIdentificacion(),
                     productor.getIdentificacion(), MONEDA_PESOS_COLOMBIANOS, productor.getPrimerNombre(),
-                    productor.getSegundoNombre(), productor.getPrimerApellido(), productor.getSegundoApellido());
+                    productor.getSegundoNombre(), productor.getPrimerApellido(), productor.getSegundoApellido(),
+                    productor.getTelefono(), productor.getDireccion(), productor.getDepartamento(), productor.getCiudad()
+            );
             return productor;
         } catch (DuplicateKeyException e) {
             throw new EntidadYaExiste(Productor.class, productor.getUsuario());
