@@ -2,6 +2,8 @@ package axpc.micros.clientes.nucleo.modelo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Productor {
 
@@ -14,5 +16,10 @@ public class Productor {
     private String correo;
     private String usuario;
     private String clave;
+    private String telefono;
+    private String departamento;
+    private String ciudad;
+    private String direccion;
+    private List<Producto> productos;
 
 }
