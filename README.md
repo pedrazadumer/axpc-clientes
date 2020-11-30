@@ -88,7 +88,7 @@ A continuación se presenta la especificación de la API
 |Método HTTP|PUT|
 |URI|/api/v1/productores/{usuario}|
 |Encabezados de Petición|Content-Type=application/json|
-|Cuerpo de Petición|```{"identificacion":"111111111","tipoIdentificacion":"C","primerNombre":"Fabiola","segundoNombre":"","primerApellido":"Posada","segundoApellido":"Pinedo","correo":"fabiola_posada@tucorreo.com", "clave":"L4sUp3rCl4v3"}```|
+|Cuerpo de Petición|```{"identificacion":"111111111","tipoIdentificacion":"C","primerNombre":"Fabiola","segundoNombre":"Emilia","primerApellido":"Posada","segundoApellido":"Pinedo","correo":"fabiola_posada@tucorreo.com","clave":"L4sUp3rCl4v3","telefono":"5555555555","direccion":"avenida siempreviva 123","departamento":"bogota","ciudad":"bogota","productos":[{"codigo":1,"nombre":"frutas"}]}```|
 
 ##### 4.3.2 Respuesta
 |Parámetro|Valor|
