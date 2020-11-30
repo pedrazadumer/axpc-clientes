@@ -50,6 +50,7 @@ public class MapeadorProductor {
         productor.setSegundoNombre(registrarProductorDto.getSegundoNombre());
         productor.setPrimerApellido(registrarProductorDto.getPrimerApellido());
         productor.setSegundoApellido(registrarProductorDto.getSegundoApellido());
+        productor.setClave(registrarProductorDto.getClave());
         productor.setTelefono(registrarProductorDto.getTelefono());
         productor.setDireccion(registrarProductorDto.getDireccion());
         productor.setDepartamento(registrarProductorDto.getDepartamento());

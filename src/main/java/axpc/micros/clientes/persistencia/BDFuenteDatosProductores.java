@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class BDFuenteDatosProductores implements FuenteDatosProductores {
 
-    public static final String QUERY_OBTENER_PRODUCTORES = "SELECT * FROM USUARIO WHERE usrUsTiId = 1";
-    public static final String QUERY_OBTENER_PRODUCTOR_POR_USUARIO = "SELECT * FROM USUARIO WHERE usrLogin = ?";
-    public static final String QUERY_INSERTAR_PRODUCTOR = "INSERT INTO USUARIO (usrLogin, usrCorreo, usrUsTiId, usrPassHash, " +
+    public static final String QUERY_OBTENER_PRODUCTORES = "SELECT * FROM usuario WHERE usrUsTiId = 1";
+    public static final String QUERY_OBTENER_PRODUCTOR_POR_USUARIO = "SELECT * FROM usuario WHERE usrLogin = ?";
+    public static final String QUERY_INSERTAR_PRODUCTOR = "INSERT INTO usuario (usrLogin, usrCorreo, usrUsTiId, usrPassHash, " +
             "usrUsTiIdAbrev, usrIdentificacion, usrMonid, usrPrimerNombre, usrSegundoNombre, usrPrimerApellido, " +
             "usrSegundoApellido, usrTelefono1, usrDireccion1, usrDepartamento1, usrCiudad1) " +
             "VALUES (?, ?, ?, SHA2(?, 256), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
